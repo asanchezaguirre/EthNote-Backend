@@ -11,10 +11,11 @@ const PORT = process.env.PORT || 3000;
 
 //import api routes
 const api = require('./src/routes/api');
+const APIM = process.env.APIM
 
 
 //setup mongoose and mongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/ethNote_api', {
+mongoose.connect(APIM, {
   useNewUrlParser:true, useCreateIndex: true
 });
 mongoose.connection.on('connected', () => {
