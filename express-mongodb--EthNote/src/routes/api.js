@@ -36,5 +36,4 @@ app.post('/notes', Notes.create);
 //app.get('/notes/:noteId/photos', Notes.findByPhoto);
 
 
-
 module.exports = app;

@@ -3,10 +3,9 @@ const {Schema} = mongoose
 
 const textSchema = new Schema({
 	_id: Schema.Types.ObjectId,
-	information: { type: String, required: true },
-	status: { type: Boolean, required: true },
-	note: { type: Schema.Types.ObjectId, ref: 'Note', required: true }
+	text: { type: String },
+	status: { type: Boolean },
+	note: { type: Schema.Types.ObjectId, ref: 'Note' }
 });
-
 
 module.exports = mongoose.model('Text', textSchema);

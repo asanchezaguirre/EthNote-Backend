@@ -8,7 +8,10 @@ const noteSchema = new Schema({
 	period: { type: String, required: true },
 	project: { type: Schema.Types.ObjectId, ref: 'Project'},
 	titleProject: { type: String, ref: 'Project'},
+	listOfPhotos: [{ type: Schema.Types.ObjectId, ref: 'Photo' }],
+	listOfText: [{ type: Schema.Types.ObjectId, ref: 'Note' }],
 });
+
 
 
 module.exports = mongoose.model('Note', noteSchema);

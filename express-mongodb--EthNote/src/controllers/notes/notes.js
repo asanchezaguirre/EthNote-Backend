@@ -21,6 +21,7 @@ const index = (req, res) =>{
 				return res.status(500).json(err);
 			})
 	}
+	
 
 /*
 const findBy = (req,res) =>{
@@ -40,15 +41,17 @@ const findBy = (req,res) =>{
 			return res.status(500).json(err);
 		})
 	}
-	*/
+	
+*/
+	
 
-const createText = (body, day) =>{
-	//console.log(body.user);
+const createText = (body, text) =>{
+	
 	const newText = new Text ({
 		_id: mongoose.Types.ObjectId(),
-		information: body.information,
+		text,
 		status: body.status,
-		note: body.note
+		note: body.note,
 		
 	})
 
@@ -56,36 +59,44 @@ const createText = (body, day) =>{
 		return newText._id
 }
 
-const createPhoto = (body, day) =>{
+const createPhoto = (body, photo) =>{
 	const newPhoto = new Photo ({
 		_id: mongoose.Types.ObjectId(),
-		description: body.description,
-		photo: body.photo,
-		note: body.note
+		photo,
+		note: body._id
 		
 	})
 
 	newPhoto.save()
+
 		return newPhoto._id
 }
 
+
 const create = (req, res) =>{
 		
-		const newIds = req.body.listOfTreatments.split(',')
-		const newTreatment = new Treatment({  
-			_id: mongoose.Types.ObjectId(), 
-			description: req.body.description,
-			listOfTreatments: req.body.listOfTreatments,
-			user: req.body.user,
-			listOfAppointments: newIds.map((day) => createAppointment(req.body, day))
-		});
+		const newTextCreate = req.body.listOfText.split(',')
+		const newPhotoCreate= req.body.listOfPhotos.split(',')
 
-		newTreatment
+		
+		const newNote = new Note({  
+			_id: mongoose.Types.ObjectId(), 
+			location: req.body.location,
+			date: req.body.date,
+			period: req.body.period,
+			project: req.body.project,
+			titleProject: req.body.titleProject,
+			listOfPhotos: newPhotoCreate.map((photo) => createPhoto(req.body, photo)),
+			listOfText: newTextCreate.map((text) => createText(req.body, text)),
+		});
+		
+
+		newNote
 		.save()
 		.then(data => {
 			res
 				.json({
-					type:"New Treatment",
+					type:"New Note",
 					data: data
 				})
 				.status(200)
@@ -98,10 +109,10 @@ const create = (req, res) =>{
 
 
 
-
 module.exports = {
 	index,
 	//findBy,
 	create
 	
 }
+
