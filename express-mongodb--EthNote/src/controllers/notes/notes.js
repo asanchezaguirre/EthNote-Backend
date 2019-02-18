@@ -26,7 +26,6 @@ const index = (req, res) =>{
 /*
 const findBy = (req,res) =>{
 		Treatment
-
 		.findById(req.params.treatmentId)
 		.then(data => {
 			res
@@ -115,4 +114,3 @@ module.exports = {
 	create
 	
 }
-

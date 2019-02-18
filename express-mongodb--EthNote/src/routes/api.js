@@ -23,6 +23,7 @@ app.post('/auth/login', Users.login);
 //Projects Routes
 app.get('/projects', Projects.index);
 app.get('/projects/:projectId', Projects.findBy);
+app.get('/users/:userId/projects', Users.findProjectBy)
 app.post('/projects', Projects.create);
 app.delete('/projects/:projectId', Projects.removeBy);
 app.put('/projects/:projectId', Projects.updateBy);

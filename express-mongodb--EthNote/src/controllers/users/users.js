@@ -5,8 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const User = require('../../models/User')
-//const Treatment = require('../../models/Treatment')
-//const Appointment = require('../../models/Appointment')
+const Project = require('../../models/Project')
 
 
 
@@ -176,7 +175,6 @@ const updateBy = (request,response) =>{
 	const password = request.body.password;
 	const phoneNumber = request.body.phoneNumber;
 	const occupation =request.body.occupation;
-
 		User
 		.findOne({_id:request.params.userId})
 		.then(function(user){
@@ -187,7 +185,6 @@ const updateBy = (request,response) =>{
 					user.email = email;
 					user.phoneNumber = phoneNumber;
 					user.occupation = occupation;
-
 					user.save()
 						.then(saved => {
 							response
@@ -206,13 +203,11 @@ const updateBy = (request,response) =>{
 								message: error
 							});
 						}
-
 						user.name = name;
 						user.email = email;
 						user.phoneNumber = phoneNumber;
 						user.occupation = occupation;
 						user.password = hash;
-
 						user
 							.save()
 							.then(saved =>{
@@ -232,7 +227,6 @@ const updateBy = (request,response) =>{
 			return response.status(404).json({"type": "Not Found"});
 		});
 	}
-
 */
 const deleteBy = (req, res) => {
     User
@@ -251,7 +245,23 @@ const deleteBy = (req, res) => {
         })
 }
 
-
+const findProjectBy = (req, res) => {
+    Project
+      .find({ user: req.params.userId })
+      .exec()
+      .then(data => {
+        res
+        	.status(200)
+        	.json({
+	          type: 'Finding the Project',
+	          data: data
+	        })
+      })
+      .catch(err => {
+        console.log(`caugth err: ${err}`);
+        return res.status(500).json(err)
+      })
+  }
 
 module.exports = {
 	index,
@@ -260,5 +270,6 @@ module.exports = {
 	deleteBy,
 	create,
 	login,
-	signup
+	signup,
+	findProjectBy,
 }
