@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Project = require('../../models/Project')
+const Note = require('../../models/Note');
 
 
 
@@ -108,11 +109,32 @@ const updateBy = (req, res) =>{
 }
 
 
+const findNotesBy = (req, res) => {
+    Note
+      .find({ project: req.params.projectId })
+      .exec()
+      .then(data => {
+        res
+        	.status(200)
+        	.json({
+	          type: 'Finding the Project',
+	          data: data
+	        })
+      })
+      .catch(err => {
+        console.log(`caugth err: ${err}`);
+        return res.status(500).json(err)
+      })
+  }
+
+
+
 module.exports = {
 	index,
 	findBy,
 	create,
 	removeBy,
 	updateBy,
+	findNotesBy,
 	
 }

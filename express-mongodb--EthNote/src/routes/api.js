@@ -32,6 +32,7 @@ app.put('/projects/:projectId', Projects.updateBy);
 //Notes Routes
 app.get('/notes',Notes.index);
 app.post('/notes', Notes.create);
+app.get('/projects/:projectId/notes', Projects.findNotesBy)
 //app.delete('/notes/:noteId', Notes.removeBy);
 //app.get('/notes/:noteId/texts', Notes.findByText);
 //app.get('/notes/:noteId/photos', Notes.findByPhoto);
