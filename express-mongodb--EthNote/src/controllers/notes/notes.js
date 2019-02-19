@@ -23,14 +23,14 @@ const index = (req, res) =>{
 	}
 	
 
-/*
 const findBy = (req,res) =>{
-		Treatment
-		.findById(req.params.treatmentId)
+		Note
+
+		.findById(req.params.noteId)
 		.then(data => {
 			res
 				.json({
-					type: "Found Treatment by Id",
+					type: "Found Note by Id",
 					data: data
 				})
 				.status(200)
@@ -40,8 +40,6 @@ const findBy = (req,res) =>{
 			return res.status(500).json(err);
 		})
 	}
-	
-*/
 	
 
 const createText = (body, status) =>{
@@ -115,7 +113,7 @@ const create = (req, res) =>{
 
 module.exports = {
 	index,
-	//findBy,
+	findBy,
 	create
 	
 }
