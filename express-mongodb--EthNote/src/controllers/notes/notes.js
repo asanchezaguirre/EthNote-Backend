@@ -44,12 +44,12 @@ const findBy = (req,res) =>{
 */
 	
 
-const createText = (body, text) =>{
-	
+const createText = (body, status) =>{
+	console.log(body, status)
 	const newText = new Text ({
 		_id: mongoose.Types.ObjectId(),
-		text,
-		status: body.status,
+		text: body,
+		status: status,
 		note: body.note,
 		
 	})
@@ -74,23 +74,26 @@ const createPhoto = (body, photo) =>{
 
 const create = (req, res) =>{
 		
-		const newTextCreate = req.body.listOfText.split(',')
+		//const newTextCreate = req.body.listOfText.split(',')
 		const newPhotoCreate= req.body.listOfPhotos.split(',')
+		const newText= [createText(req.body.listOfText1, 0), createText(req.body.listOfText2, 1)];
+		//console.log(newText)
 
-		
 		const newNote = new Note({  
 			_id: mongoose.Types.ObjectId(), 
 			location: req.body.location,
 			date: req.body.date,
 			period: req.body.period,
-			project: req.body.project,
 			titleProject: req.body.titleProject,
 			listOfPhotos: newPhotoCreate.map((photo) => createPhoto(req.body, photo)),
-			listOfText: newTextCreate.map((text) => createText(req.body, text)),
+			listOfText: newText
 		});
 		
 
+ console.log(newNote)
+
 		newNote
+
 		.save()
 		.then(data => {
 			res
@@ -104,6 +107,7 @@ const create = (req, res) =>{
 			console.log(`caugth error: ${err}`);
 			return res.status(500).json({message: 'Post Failed'});
 		})
+		
 	}
 
 
