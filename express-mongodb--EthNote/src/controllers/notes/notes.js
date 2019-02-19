@@ -84,6 +84,7 @@ const create = (req, res) =>{
 			location: req.body.location,
 			date: req.body.date,
 			period: req.body.period,
+			project: req.body.project,
 			titleProject: req.body.titleProject,
 			listOfPhotos: newPhotoCreate.map((photo) => createPhoto(req.body, photo)),
 			listOfText: newText
