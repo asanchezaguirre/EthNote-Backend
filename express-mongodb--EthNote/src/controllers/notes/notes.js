@@ -27,8 +27,12 @@ const findBy = (req,res) =>{
 		Note
 
 		.findById(req.params.noteId)
+		.populate('listOfText')
+		.populate('listOfPhotos')
 		.then(data => {
-			res
+			//console.log(data)
+
+		res
 				.json({
 					type: "Found Note by Id",
 					data: data

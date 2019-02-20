@@ -71,19 +71,22 @@ const create = (req, res) =>{
 
 const removeBy = (req, res) =>{
 	Project
-	.deleteOne({_id:req.params.projectId})
-		.then(data => {
-			res
-				.json({
-					type: "Project Removed",
-					data: data
-				})
-				.status(200)
-		})
-		.catch(err =>{
-			console.log(`caugth error: ${err}`);
-			return res.status(500).json(err);
-		})
+	.findById(req.params.projectId, function (err, project) {
+            if (!err) {
+                Note.deleteMany({ project: { $in: [project._id] } }, function (err) { })
+                project
+                    .remove()
+                    .then(() => {
+                        res.status(200)
+                            .json({
+                                message: 'Project was deleted'
+                            })
+                    })
+            }
+        }).catch(err => {
+            console.log(`caugth err: ${err}`);
+            return res.status(500).json({ message: 'You do not have permission' })
+        })
 }
 
 const updateBy = (req, res) =>{
