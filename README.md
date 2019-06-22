@@ -26,4 +26,4 @@ El usuario podrá listar y añadir proyectos, y notas relacionadas a los mismos,
 
 ## <a name="descripcion-func"></a> Datamodel: 
 
-<img src=./src/images/datamodel.jpeg>
+<img src=./express-mongodb--EthNote/src/images/datamodel.jpeg>
